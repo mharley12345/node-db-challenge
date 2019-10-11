@@ -17,6 +17,7 @@ function getResources(){
 
 function getProjects(){
     return db('projects')
+   
 }
 
 function getTasks(){

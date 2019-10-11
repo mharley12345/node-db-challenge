@@ -1,11 +1,15 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('tasks').del()
+  return knex('tasks').truncate()
     .then(function () {
       // Inserts seed entries
       return knex('tasks').insert([
-       {id:2,description:"Seed test data",notes:"Hurry Times almost up",is_complete:false,project_id:2}
+         {project_id:1,description:'start test'},
+         {project_id:1,description:'submit test'},
+         {project_id:2,description:'pass backend'},
+         {project_id:2,description:'pass labs'},
+         {project_id:3,description:'Get job making a mil a year'}
       ]);
     });
 };
