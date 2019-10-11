@@ -83,4 +83,38 @@ router.post('/addresource',(req,res)=>{
     })
 
 
+//Delete tasks
+ router.delete('/tasks/:id', (req, res) => {
+    db.remove(req.params.id)
+    .then(() => {
+        res.status(200).json({ message: 'task deleted'})
+    })
+    .catch(err => {
+        res.status(500).json({ errorMessage: "An error occured while trying to delete the task." })
+    })
+});
+//Delete resources
+router.delete('/resources/:id', (req, res) => {
+    db.remove(req.params.id)
+    .then(() => {
+        res.status(200).json({ message: 'resource deleted'})
+    })
+    .catch(err => {
+        res.status(500).json({ errorMessage: "An error occured while trying to delete the resource." })
+    })
+});
+
+//Delete projects
+
+router.delete('/projects/:id', (req, res) => {
+    db.remove(req.params.id)
+    .then(() => {
+        res.status(200).json({ message: 'project deleted'})
+    })
+    .catch(err => {
+        res.status(500).json({ errorMessage: "An error occured while trying to delete the project." })
+    })
+});
+ 
+
 module.exports=router

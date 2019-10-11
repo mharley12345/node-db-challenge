@@ -8,7 +8,8 @@ module.exports = {
      addProject,
     getProjects,
      addTask,
-     getTasks
+     getTasks,
+    remove,
 }
 // get 
 function getResources(){
@@ -47,4 +48,29 @@ function addTask(task){
     .then(task =>{
         return task
     })
+}
+
+// Delete projects
+
+function remove(id){
+    return db('projects')
+    .where('id',id)
+    .del();
+}
+ 
+// Delete resources
+
+function remove(id){
+    return db('resources')
+    .where('id',id)
+    .del()
+
+}
+
+// Delete tasks
+
+function remove(id){
+    return db('tasks')
+    .where('id',id)
+    .del()
 }
