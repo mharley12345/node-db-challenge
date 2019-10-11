@@ -3,13 +3,17 @@ exports.up = function(knex) {
   return knex.schema
   .createTable('projects',(projects) =>{
       projects.increments('id')
-      projects.string('name').notNullable()
+      projects.string('name',).notNullable()
       projects.text('description')
-      projects.binary('is_complete',1).notNullable().defaultTo(0)
+      projects.boolean('completed')
+      .notNullable()
+     
+      .defaultTo(false,JSON.stringify({0:false}))
      
   })
   .createTable('tasks',(tasks)=>{
       tasks.increments('id')
+      
       tasks.integer('project_id',6)
       .unsigned()
       .notNullable()
@@ -19,7 +23,9 @@ exports.up = function(knex) {
       .onDelete('RESTRICT')
       tasks.string('description',255).notNullable()
       tasks.text('notes',500).nullable()
-      tasks.binary('is_complete',1).defaultTo(0)
+      tasks.boolean('completed')
+  
+      .defaultTo(false,JSON.stringify({completed:true}))
    
   })
   .createTable('resources',(resources) =>{
@@ -31,7 +37,7 @@ exports.up = function(knex) {
     .nullable()
   })
   .createTable('_resources_',(tbl)=>{
-    tbl.increments()
+    tbl.increments('id')
     tbl.integer('project_id',6)
     .notNullable()
     .unsigned()

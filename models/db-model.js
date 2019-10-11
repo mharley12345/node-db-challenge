@@ -23,6 +23,7 @@ function getProjects(){
 
 function getTasks(){
     return db('tasks')
+
 }
 
 // add
@@ -42,9 +43,11 @@ return db('projects')
 })
   
 }
-function addTask(task){
+function addTask(task,id){
     return db('tasks')
+    .where('project_id',id)
     .insert(task)
+  
     .then(task =>{
         return task
     })

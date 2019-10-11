@@ -36,8 +36,8 @@ router.get('/projects',(req,res)=>{
        })
 })
 
-router.get('/tasks',(req,res)=>{
-    db.getTasks()
+router.get('/tasks/:id',(req,res)=>{
+    db.getTasks(req.param.id)
     .then(tasks =>{
         if (tasks){
             res.json(tasks)
