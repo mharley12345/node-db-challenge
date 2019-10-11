@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models/db-model')
 
+
+// get routes
 router.get('/' ,(req,res)=>{
     res.send("<h1>I Work</h1>")
 })
@@ -19,6 +21,66 @@ router.get('/resources',(req,res)=>{
            res.status(500).json({message:`Sorry we are incompetent and our server is broke. ${err}`})
        })
 })
+
+router.get('/projects',(req,res)=>{
+    db.getProjects()
+    .then(projects =>{
+        if (projects){
+            res.json(projects)
+        }else{
+            res.status(404).json({message:"Sorry No Projects Found"})
+        }
+})
+       .catch(err => {
+           res.status(500).json({message:`Sorry we are incompetent and our server is broke. ${err}`})
+       })
+})
+
+router.get('/tasks',(req,res)=>{
+    db.getTasks()
+    .then(tasks =>{
+        if (tasks){
+            res.json(tasks)
+        }else{
+            res.status(404).json({message:"Sorry No Tasks Found"})
+        }
+})
+       .catch(err => {
+           res.status(500).json({message:`Sorry we are incompetent and our server is broke. ${err}`})
+       })
+})
+
+// ADD
+
+router.post('/addresource',(req,res)=>{
+    db.addResource(req.body)
+    .then(resource =>{
+        res.status(201).json({newResource : resource})
+    })
+    .catch(err =>{
+        res.status(500).json({message:`Sorry we are incompetent and our server is broke. ${err}`})
+    })
+})
+
+    router.post('/addproject',(req,res)=>{
+        db.addProject(req.body)
+        .then(project =>{
+            res.status(201).json({newProject : project})
+        })
+        .catch(err =>{
+            res.status(500).json({message:`Sorry we are incompetent and our server is broke. ${err}`})
+        })
+    })
+
+    router.post('/addtask',(req,res)=>{
+        db.addTask(req.body)
+        .then(task =>{
+            res.status(201).json({newTask : task})
+        })
+        .catch(err =>{
+            res.status(500).json({message:`Sorry we are incompetent and our server is broke. ${err}`})
+        })
+    })
 
 
 module.exports=router
